@@ -141,6 +141,8 @@ func (conf Config) Log(kong *pdk.PDK) {
 
 # Testing
 
+Run tests with `go test`
+
 [A test harness is provided by the `go-pdk` library.](https://github.com/Kong/go-pdk/blob/master/test/test.go#L53).
 
 The following is taken from the source file:
@@ -233,3 +235,7 @@ pluginserver_hello_world_query_cmd=/kong/go-plugins/hello_world -dump
 ```
 
 # Running the example
+
+```sh
+docker-compose build && docker-compose up
+```
