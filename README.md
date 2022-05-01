@@ -65,7 +65,7 @@ type Config struct {
 `declarative_config.yaml`
 ```yaml
 plugins:
-- name: hello-world
+- name: hello_world
   config:
     message: example
 ```
