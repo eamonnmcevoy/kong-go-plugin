@@ -1,0 +1,17 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+- name: example
+  url: https://example.com
+  routes:
+  - name: example
+    paths:
+    - /
+    preserve_host: false
+    strip_path: false
+
+plugins:
+- name: hello_world
+  config:
+    message: hello

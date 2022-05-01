@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  kong:
+    build:
+      context: .
+    container_name: kong
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+      - 8001:8001
