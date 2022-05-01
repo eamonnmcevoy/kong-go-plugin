@@ -1,34 +1,52 @@
-/*
-	A "hello world" plugin in Go,
-	which reads a request header and sets a response header.
-*/
-
-package main
+package main_test
 
 import (
-	"github.com/Kong/go-pdk"
-	"github.com/Kong/go-pdk/server"
+	"github.com/Kong/go-pdk/test"
+	"github.com/stretchr/testify/assert"
+	"hello_world"
+	"testing"
 )
 
-func main() {
-	server.StartServer(New, Version, Priority)
+func TestShouldSetXPluginToHelloWhenMessageIsNotConfigured(t *testing.T) {
+	// arrange
+	conf := main.Config{}
+
+	env, err := test.New(t, test.Request{
+		Method:  "GET",
+		Url:     "http://example.com",
+		Headers: map[string][]string{"X-Hi": {"hello"}},
+	})
+	assert.NoError(t, err)
+
+	// act
+	env.DoHttps(&conf)
+
+	// assert
+	headerValue := env.ClientRes.Headers.Get("x-plugin")
+
+	assert := assert.New(t)
+	assert.Equal(headerValue, "hello", "should be equal")
 }
 
-var Version = "0.2"
-var Priority = 5000
-
-type Config struct {
-	Message string
-}
-
-func New() interface{} {
-	return &Config{}
-}
-
-func (conf Config) Access(kong *pdk.PDK) {
-	message := conf.Message
-	if message == "" {
-		message = "hello"
+func TestShouldSetXPluginToConfiguredMessage(t *testing.T) {
+	// arrange
+	conf := main.Config{
+		Message: "test",
 	}
-	kong.Response.SetHeader("x-plugin", message)
+
+	env, err := test.New(t, test.Request{
+		Method:  "GET",
+		Url:     "http://example.com",
+		Headers: map[string][]string{"X-Hi": {"hello"}},
+	})
+	assert.NoError(t, err)
+
+	// act
+	env.DoHttps(&conf)
+
+	// assert
+	headerValue := env.ClientRes.Headers.Get("x-plugin")
+
+	assert := assert.New(t)
+	assert.Equal(headerValue, "test", "should be equal")
 }
