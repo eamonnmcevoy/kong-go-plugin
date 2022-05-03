@@ -1,6 +1,6 @@
 # Kong go plugin guide
 
-This repo is a complete up to date guide to creating, testing, installing, and running a go plugin for the kong api gateway.
+This repo aims to provide working examples, and an up to date guide to creating, testing, installing, and running a go plugin for the kong api gateway.
 
 I am creating this repo to document my notes on creating a go plugin because I found the [official documentation](https://docs.konghq.com/gateway/2.8.x/reference/external-plugins/) difficult to follow and most [existing tutorials](https://konghq.com/blog/kong-gateway-go-plugin) are out of date. Hopefully this will save you a few hours of experimentation.
 
